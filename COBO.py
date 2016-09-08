@@ -7,10 +7,16 @@ import argparse
 parser = argparse.ArgumentParser(prog='COBO', description='Launch correlation based optimizer.')
 parser.add_argument('engine' , type = str)
 parser.add_argument('depth', type = int)
+parser.add_argument('--popsize', type = int)
+
 args = parser.parse_args()
 
 engine = args.engine
 depth =  args.depth
+popsize = args.popsize
+
+if popsize == None:
+  popsize = 15
 
 correlation = 0
 
@@ -101,6 +107,6 @@ def statusMsg(xk, convergence = 0):
 if __name__ == '__main__':
   f = fitness(Pars2Array(Pars))
   print '\n' +  'Reference correlation: ' + str(-f)
-  res = scipy.optimize.differential_evolution(fitness, getBounds(), disp=True, callback=statusMsg)
+  res = scipy.optimize.differential_evolution(fitness, getBounds(), disp=True, callback = statusMsg, popsize = popsize)
   statusMsg(res.x)
   print 'Search/eval correlation: ', -res.fun
