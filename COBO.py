@@ -2,15 +2,18 @@ import subprocess
 import sys
 import scipy
 import scipy.optimize
+import argparse
 
-args = sys.argv[1:]
+parser = argparse.ArgumentParser(prog='COBO', description='Launch correlation based optimizer.')
+parser.add_argument('engine' , type = str)
+parser.add_argument('depth', type = int)
+args = parser.parse_args()
+
+engine = args.engine
+depth =  args.depth
 
 correlation = 0
 
-#d=20, pv=10 previous setting
-
-depth = int(args[1])
-engine = args[0]
 multipv = 1
 verbose = False
 
