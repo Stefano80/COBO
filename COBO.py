@@ -8,19 +8,23 @@ parser = argparse.ArgumentParser(prog='COBO', description='Launch correlation ba
 parser.add_argument('engine' , type = str)
 parser.add_argument('depth', type = int)
 parser.add_argument('--popsize', type = int)
+parser.add_argument('--pv', type = int)
 
 args = parser.parse_args()
 
 engine = args.engine
 depth =  args.depth
 popsize = args.popsize
+multipv = args.pv
 
 if popsize == None:
   popsize = 15
 
-correlation = 0
+if multipv == None:
+  multipv = 1
 
-multipv = 1
+
+correlation = 0
 verbose = False
 
 def getPars():
