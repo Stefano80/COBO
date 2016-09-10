@@ -45,7 +45,7 @@ def launchSf(locpars):
       print p[0],p[1]
   sf =subprocess.Popen('./' + engine, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, bufsize=1)
   sf.stdin.write('setoption name multipv value ' + str(multipv)  + '\n')
-  sf.stdin.write('setoption name Hash value 16' + '\n')
+  sf.stdin.write('setoption name Hash value 2048' + '\n')
 
   for par in locpars:
     cmd = 'setoption name ' + par[0] + ' value ' + str(par[1]) + '\n'
@@ -73,12 +73,13 @@ def launchSf(locpars):
   if verbose:
     print '\n' + str(res)
 
-  sf.kill()
+  sf.terminate()
+  sf.wait()
   return res
 
 
 def Array2Pars(parsArray):
-  locpars = Pars
+  locpars = Pars[:]
   for n, par in enumerate(locpars):
     locpars[n][1] = int(round(float(parsArray[n])))
   return locpars
